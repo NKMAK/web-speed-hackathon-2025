@@ -25,7 +25,7 @@ export const HomePage = () => {
         {modules.map((module) => {
           return (
             <div key={module.id} className="mb-[24px] px-[24px]">
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense>
                 <RecommendedSection module={module} />
               </Suspense>
             </div>
