@@ -1,5 +1,11 @@
+import { lazy, Suspense } from 'react';
+
 import { createStore } from '@wsh-2025/client/src/app/createStore';
-import { RecommendedSection } from '@wsh-2025/client/src/features/recommended/components/RecommendedSection';
+const RecommendedSection = lazy(() =>
+  import('@wsh-2025/client/src/features/recommended/components/RecommendedSection').then((module) => ({
+    default: module.RecommendedSection,
+  })),
+);
 import { useRecommended } from '@wsh-2025/client/src/features/recommended/hooks/useRecommended';
 
 export const prefetch = async (store: ReturnType<typeof createStore>) => {
@@ -19,7 +25,9 @@ export const HomePage = () => {
         {modules.map((module) => {
           return (
             <div key={module.id} className="mb-[24px] px-[24px]">
-              <RecommendedSection module={module} />
+              <Suspense fallback={<div>Loading...</div>}>
+                <RecommendedSection module={module} />
+              </Suspense>
             </div>
           );
         })}
