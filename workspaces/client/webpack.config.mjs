@@ -20,7 +20,7 @@ const config = {
         resolve: {
           fullySpecified: false,
         },
-        test: /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/,
+        test: /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx|webp)$/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -41,8 +41,15 @@ const config = {
         },
       },
       {
-        test: /\.png$/,
+        test: /\.webp$/,
         type: 'asset/inline',
+      },
+      {
+        generator: {
+          filename: 'images/[hash][ext]',
+        },
+        test: /\.(png|jpg|jpeg|gif|svg)$/,
+        type: 'asset/resource',
       },
       {
         resourceQuery: /raw/,
