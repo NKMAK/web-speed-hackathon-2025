@@ -7,6 +7,12 @@ const config = {
   devtool: false,
   entry: './src/main.tsx',
   mode: 'development',
+  cache: {
+    type: 'filesystem',
+    buildDependencies: {
+      config: [import.meta.url],
+    },
+  },
   module: {
     rules: [
       {
