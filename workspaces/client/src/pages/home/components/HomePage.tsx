@@ -15,7 +15,6 @@ export const HomePage = () => {
   return (
     <>
       <title>Home - AremaTV</title>
-
       <div className="w-full py-[48px]">
         {modules.map((module) => {
           return (
