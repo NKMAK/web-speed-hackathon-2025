@@ -23,7 +23,6 @@ export const EpisodeItem = ({ episode }: Props) => {
         {({ isTransitioning }) => {
           return (
             <>
-              <h1> a</h1>
               <Flipped stagger flipId={isTransitioning ? `episode-${episode.id}` : 0}>
                 <div className="relative overflow-hidden rounded-[8px] border-[2px] border-solid border-[#FFFFFF1F] before:absolute before:inset-x-0 before:bottom-0 before:block before:h-[64px] before:bg-gradient-to-t before:from-[#212121] before:to-transparent before:content-['']">
                   <img alt="" className="h-auto w-full" loading="lazy" src={episode.thumbnailUrl} />
