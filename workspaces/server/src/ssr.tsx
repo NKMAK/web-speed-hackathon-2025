@@ -60,7 +60,8 @@ export function registerSsr(app: FastifyInstance): void {
       <script>
         window.__staticRouterHydrationData = ${htmlescape({
           actionData: context.actionData,
-          loaderData: context.loaderData,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+          loaderData: { 0: { user: context.loaderData[0].user } },
         })};
       </script>
     `);
