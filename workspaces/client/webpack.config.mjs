@@ -1,18 +1,19 @@
 import path from 'node:path';
 
+import TerserPlugin from 'terser-webpack-plugin';
 import webpack from 'webpack';
 
 /** @type {import('webpack').Configuration} */
 const config = {
-  devtool: 'source-map',
-  entry: './src/main.tsx',
-  mode: 'development',
   cache: {
     type: 'filesystem',
     buildDependencies: {
       config: [import.meta.url],
     },
   },
+  devtool: false,
+  entry: './src/main.tsx',
+  mode: 'production',
   module: {
     rules: [
       {
@@ -64,14 +65,44 @@ const config = {
       },
     ],
   },
+  optimization: {
+    chunkIds: 'deterministic',
+    concatenateModules: true,
+    innerGraph: true,
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        extractComments: false,
+        parallel: true,
+
+        terserOptions: {
+          compress: {
+            dead_code: true,
+            drop_console: true,
+            drop_debugger: true,
+            passes: 2,
+            pure_funcs: ['console.log', 'console.info', 'console.debug'],
+            unused: true,
+          },
+
+          ecma: 2020,
+          format: {
+            comments: false,
+          },
+        },
+      }),
+    ],
+    moduleIds: 'deterministic',
+    sideEffects: true,
+    usedExports: true,
+  },
   output: {
     chunkFilename: 'chunk-[contenthash].js',
-    chunkFormat: false,
     filename: 'main.js',
     path: path.resolve(import.meta.dirname, './dist'),
+    pathinfo: false,
     publicPath: 'auto',
   },
-
   plugins: [new webpack.EnvironmentPlugin({ API_BASE_URL: '/api', NODE_ENV: '' })],
   resolve: {
     alias: {
