@@ -508,6 +508,7 @@ export async function registerApi(app: FastifyInstance): Promise<void> {
           },
         },
       });
+
       reply.code(200).send(modules);
     },
   });
