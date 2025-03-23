@@ -1,4 +1,5 @@
-import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
+import { useUpdate } from 'react-use';
 
 interface Props {
   children: ReactNode;
@@ -7,31 +8,23 @@ interface Props {
 }
 
 export const AspectRatio = ({ children, ratioHeight, ratioWidth }: Props) => {
+  const forceUpdate = useUpdate();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState(0);
-
-  const updateHeight = useCallback(() => {
-    if (containerRef.current) {
-      const width = containerRef.current.getBoundingClientRect().width;
-      setHeight((width * ratioHeight) / ratioWidth);
-    }
-  }, [ratioHeight, ratioWidth]);
 
   useEffect(() => {
-    updateHeight();
-
-    const resizeObserver = new ResizeObserver(updateHeight);
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current);
-    }
-
+    const interval = setInterval(function tick() {
+      forceUpdate();
+    }, 1000);
     return () => {
-      resizeObserver.disconnect();
+      clearInterval(interval);
     };
-  }, [updateHeight]);
+  }, []);
+
+  const width = containerRef.current?.getBoundingClientRect().width ?? 0;
+  const height = (width * ratioHeight) / ratioWidth;
 
   return (
-    <div ref={containerRef} className="relative w-full" style={{ height: `${height}px` }}>
+    <div ref={containerRef} className={`h-[${height}px] relative w-full`}>
       {children}
     </div>
   );
