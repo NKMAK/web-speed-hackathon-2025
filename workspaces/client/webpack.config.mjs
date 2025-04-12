@@ -11,7 +11,7 @@ const config = {
       config: [import.meta.url],
     },
   },
-  devtool: false,
+  devtool: 'source-map',
   entry: './src/main.tsx',
   mode: 'production',
   module: {
