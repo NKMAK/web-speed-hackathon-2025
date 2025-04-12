@@ -72,7 +72,9 @@ export const Program = ({ height, program }: Props): ReactElement => {
               <img
                 ref={imageRef}
                 alt=""
-                className="pointer-events-none w-full rounded-[8px] border-[2px] border-solid border-[#FFFFFF1F]"
+                className="pointer-events-none aspect-video w-full rounded-[8px] border-[2px] border-solid border-[#FFFFFF1F]"
+                decoding="async"
+                loading="lazy"
                 src={program.thumbnailUrl}
               />
             </div>

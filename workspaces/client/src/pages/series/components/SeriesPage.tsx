@@ -36,7 +36,8 @@ export const SeriesPage = () => {
           <Flipped stagger flipId={`series-${series.id}`}>
             <img
               alt=""
-              className="h-auto w-[400px] shrink-0 grow-0 rounded-[8px] border-[2px] border-solid border-[#FFFFFF1F]"
+              className="aspect-video h-auto w-[400px] shrink-0 grow-0 rounded-[8px] border-[2px] border-solid border-[#FFFFFF1F]"
+              loading="lazy"
               src={series.thumbnailUrl}
             />
           </Flipped>
